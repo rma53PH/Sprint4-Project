@@ -5,8 +5,6 @@ import seaborn as sns
 
 df_us_cars = pd.read_csv('vehicles_us.csv')
 
-import streamlit as st
-
 # Create checkboxes for selecting vehicle makes
 unique_makes = df_us_cars['make'].unique()
 selected_makes = st.multiselect('Select Vehicle Makes:', unique_makes)
