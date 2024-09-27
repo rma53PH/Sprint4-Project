@@ -1,59 +1,39 @@
-import streamlit as st
 import pandas as pd
-import plotly.express as px
+import streamlit as st
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-# Load the data
 df_us_cars = pd.read_csv('vehicles_us.csv')
 
-df_us_cars.columns = df_us_cars.columns.str.strip().str.lower()
+import streamlit as st
 
-# Title for the app
-st.title('Vehicle Data Exploration')
+# Create checkboxes for selecting vehicle makes
+unique_makes = df_us_cars['make'].unique()
+selected_makes = st.multiselect('Select Vehicle Makes:', unique_makes)
 
-# Display the dataframe with a checkbox to toggle visibility
-if st.checkbox('Show DataFrame'):
-    st.write(df_us_cars.head())
+# Filter the DataFrame based on selected makes
+filtered_df = df_us_cars[df_us_cars['make'].isin(selected_makes)]
 
-# Histogram for Condition vs Model Year
-st.header('Histogram: Condition vs. Model Year')
-fig_hist = px.histogram(df_us_cars, x='model_year', color='condition', 
-                        title='Condition Distribution by Model Year', 
-                        nbins=20)
-st.plotly_chart(fig_hist)
+# Histogram of vehicle types by manufacturer
+plt.figure(figsize=(12, 6))
+sns.countplot(data=filtered_df, x='type', hue='make', order=filtered_df['type'].value_counts().index)
+plt.title('Vehicle Types by Manufacturer')
+plt.xticks(rotation=45)
+plt.show()
 
-# Vehicle types by manufacturer
-st.header('Vehicle Types by Manufacturer')
-manufacturer = st.selectbox('Select Manufacturer', df_us_cars['make'].unique())
-filtered_df = df_us_cars[df_us_cars['make'] == manufacturer]
-fig_types = px.histogram(filtered_df, x='type', 
-                         title=f'Vehicle Types for {manufacturer}')
-st.plotly_chart(fig_types)
+plt.figure(figsize=(12, 6))
+sns.histplot(data=filtered_df, x='model_year', hue='condition', multiple='stack', bins=20)
+plt.title('Condition vs. Model Year')
+plt.show()
 
-# Price Distribution by Manufacturer
-st.header('Compare Price Distribution Between Manufacturers')
-fig_price_manufacturer = px.box(df_us_cars, x='make', y='price', 
-                                title='Price Distribution Across Manufacturers', 
-                                points='all')
-st.plotly_chart(fig_price_manufacturer)
+plt.figure(figsize=(12, 6))
+sns.boxplot(data=filtered_df, x='make', y='price')
+plt.title('Price Distribution Between Manufacturers')
+plt.xticks(rotation=45)
+plt.show()
 
-# Scatter plot: Price distribution by model year and model
-st.header('Scatter Plot: Price Distribution by Model Year and Model')
-
-# Define model year range slider
-min_year = int(df_us_cars['model_year'].min())  # Get minimum model year from data
-max_year = int(df_us_cars['model_year'].max())  # Get maximum model year from data
-
-# Create a slider to allow user to select model year range
-model_year_range = st.slider('Select Model Year Range', 
-                             min_value=min_year, 
-                             max_value=max_year, 
-                             value=(2000, 2020))  # Default range
-
-filtered_df_scatter = df_us_cars[(['model_year'] >= model_year_range[0]) & 
-                         (df_us_cars['model_year'] <= model_year_range[1])]
-
-fig_scatter = px.scatter(filtered_df_scatter, x='model_year', y='price', 
-                         color='model', title='Price vs. Model Year by Model', 
-                         hover_data=['manufacturer'])
-st.plotly_chart(fig_scatter)
-
+plt.figure(figsize=(12, 6))
+sns.scatterplot(data=filtered_df, x='model_year', y='price', hue='model', alpha=0.7)
+plt.title('Price Distribution by Model Year and Model')
+plt.legend(bbox_to_anchor=(1, 1), loc='upper left')
+plt.show()
