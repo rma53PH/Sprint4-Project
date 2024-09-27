@@ -21,15 +21,15 @@ st.plotly_chart(fig_hist)
 
 # Vehicle types by manufacturer
 st.header('Vehicle Types by Manufacturer')
-manufacturer = st.selectbox('Select Manufacturer', df['manufacturer'].unique())
-filtered_df = df[df['manufacturer'] == manufacturer]
+manufacturer = st.selectbox('Select Manufacturer', df['make'].unique())
+filtered_df = df[df['make'] == manufacturer]
 fig_types = px.histogram(filtered_df, x='type', 
                          title=f'Vehicle Types for {manufacturer}')
 st.plotly_chart(fig_types)
 
 # Price Distribution by Manufacturer
 st.header('Compare Price Distribution Between Manufacturers')
-fig_price_manufacturer = px.box(df, x='manufacturer', y='price', 
+fig_price_manufacturer = px.box(df, x='make', y='price', 
                                 title='Price Distribution Across Manufacturers', 
                                 points='all')
 st.plotly_chart(fig_price_manufacturer)
