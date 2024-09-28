@@ -1,11 +1,11 @@
 # Sprint4-Project
 
-https://sprint4-project-h8hb.onrender.com
+URL: https://sprint4-project-h8hb.onrender.com
 
 Triple Ten Sprint 4 Project Software Development Tools
 The goal of this project is to develop a web app using different software developmenet tools from a local terminal. GitHub, Render, VS Code
 
-Creat a FiftHub Account, a Render Account and VS Code. 
+Creat a GiftHub Account, a Render Account and VS Code. 
 
 Download the vehicles_us.csv file and create a Data Frame. Save this file to your root directory/Repository for this project. 
 Explore the df information in order to create a data set to use in your web app. 
@@ -27,4 +27,9 @@ at least one Plotly Express histogram using st.write or st.plotly_chart
 at least one Plotly Express scatter plot using st.write or st.plotly_chart
 at least one checkbox using st.checkbox that changes the behavior of any of the above components
 Deploy the application using Render and verify your app is functional using the URL created. 
+
+App Function: 
+
+Use the check box to show non 4WD and 4WD vehicles. 
+Scatterplot us used for price comparison. (Price vs. Model Year by Conditon)
 
