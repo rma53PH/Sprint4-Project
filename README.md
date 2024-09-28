@@ -33,3 +33,13 @@ App Function:
 Use the check box to show non 4WD and 4WD vehicles. 
 Scatterplot us used for price comparison. (Price vs. Model Year by Conditon)
 
+Sprint 4-Project Sturctur: 
+
+├── README.md
+├── app.py
+├── <vehicles_us>.csv
+└── notebooks
+    └── EDA.ipynb
+└── .streamlit
+ ──   config.toml
+
