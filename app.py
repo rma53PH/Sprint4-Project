@@ -5,6 +5,10 @@ import seaborn as sns
 
 df_us_cars = pd.read_csv('vehicles_us.csv')
 
+# Assume the 'model' column has both make and model (e.g., 'Ford F-150')
+df_us_cars[['make', 'model']] = df_us_cars['model'].str.split(' ', n=1, expand=True)
+df_us_cars[['make', 'model']].head()
+
 # Create checkboxes for selecting vehicle makes
 unique_makes = df_us_cars['make'].unique()
 selected_makes = st.multiselect('Select Vehicle Makes:', unique_makes)
