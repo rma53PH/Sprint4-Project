@@ -5,6 +5,10 @@ import plotly.express as px
 # Load the dataset
 df_us_cars = pd.read_csv('vehicles_us.csv')
 
+# Assume the 'model' column has both make and model (e.g., 'Ford F-150')
+df_us_cars[['make', 'model']] = df_us_cars['model'].str.split(' ', n=1, expand=True)
+df_us_cars[['make', 'model']].head()
+
 # Clean column names
 df_us_cars.columns = df_us_cars.columns.str.strip().str.lower()
 
